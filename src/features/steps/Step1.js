@@ -1,0 +1,211 @@
+import React, { useEffect, useState } from "react";
+import UserApi from "apis/UserApi";
+import { useFormik } from "formik";
+import { MdRefresh, MdOutlineSearch, MdSearch } from "react-icons/md";
+import * as yup from "yup";
+import { useSnackbar } from "notistack";
+// import { Button, TextField, Typography } from "@mui/material";
+import PasswordTextField from "common/PasswordTextField";
+import { getTextFieldFormikProps } from "utils/FormikUtils";
+import useAuthUser from "hooks/useAuthUser";
+// import DashboardTable from "./DashboardTable";
+import { Link, Navigate } from "react-router-dom";
+import { RouteEnum } from "constants/RouteConstants";
+import LoginHeader from "common/LoginHeader";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+
+import {
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Divider,
+  FormControl,
+  Input,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import WallCards from "common/WallCardsServices";
+import { AccountCircle, Wallet } from "@mui/icons-material";
+import ToDoorSearch from "common/ToDoorSearch";
+import { post, get, put } from "services/fetch";
+import SuperAdminApi from "apis/UserApi";
+import MyTable from "common/MyTable";
+import ExpenseStepper from "common/ExpenseStepper";
+
+function Step1(props) {
+  const [userType, setUserType] = React.useState("");
+  const [show, setshow] = React.useState(false);
+  const [dataType, setdataType] = React.useState("companies");
+  const [filtered, setFiltered] = React.useState([]);
+
+  //  const getUserStatsQueryResult = UserApi.useGetStatsQuery();
+  //  console.log(getUserStatsQueryResult);
+  //  const userStats = getUserStatsQueryResult?.data?.data;
+  // const getStoreProductsQueryResult = UserApi.useGetStoreProductsQuery({});
+  // const storeProducts = getStoreProductsQueryResult?.data;
+
+  // console.log(getStoreProductsQueryResult)
+
+  // console.log(companyStatistics);
+  // const getAllRIderQueryResult = UserApi.useGetAllQuery({ userType: "rider" });
+  // const totalRiders = getAllRIderQueryResult?.data?.data;
+
+  // const getAllCompanyQueryResult = UserApi.useGetAllQuery({
+  //   userType: "company",
+  // });
+  // const totalCompanies = getAllCompanyQueryResult?.data?.data;
+
+  // const getAllCustomerQueryResult = UserApi.useGetAllQuery({
+  //   userType: "customer",
+  // });
+  // const totalCustomers = getAllCustomerQueryResult?.data?.data;
+
+  //  console.log(getAllQueryResult.data.data);
+
+  const history = useNavigate();
+
+  // const redirect = () => {
+  //   history("/complete-Step1");
+  // };
+
+  const authUser = useAuthUser();
+
+  function numberWithCommas(x) {
+    // serPrice.value = x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //  formState.target_amount=cleanupNumber(serPrice.value)
+    return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const [age, setAge] = React.useState();
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  return (
+    <div className="w-full flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-4">
+        <TextField
+          variant="outlined"
+          // color="error"
+          className="bg-white border-2 border-primary-main rounded-full"
+          // label="Field 1"
+          name="Select "
+          // value={formData.quantity}
+          onChange={handleChange}
+          // multiline
+          rows={4}
+          fullWidth
+          placeholder="Approval Assignee "
+        />
+        <div className="w-full flex gap-4 items-center">
+          <TextField
+            variant="outlined"
+            // color="error"
+            className="bg-white border-2 border-primary-main rounded-full"
+            // label="Field 1"
+            name="Select "
+            // value={formData.quantity}
+            onChange={handleChange}
+            // multiline
+            rows={4}
+            fullWidth
+            placeholder="Approval Assignee "
+          />{" "}
+          <TextField
+            variant="outlined"
+            // color="error"
+            className="bg-white border-2 border-primary-main rounded-full"
+            // label="Field 1"
+            name="Select "
+            // value={formData.quantity}
+            onChange={handleChange}
+            // multiline
+            rows={4}
+            fullWidth
+            placeholder="Approval Assignee "
+          />
+        </div>
+
+        <div className="w-full flex gap-4 items-center">
+          <TextField
+            variant="outlined"
+            // color="error"
+            className="bg-white border-2 border-primary-main rounded-full"
+            // label="Field 1"
+            name="Select "
+            // value={formData.quantity}
+            onChange={handleChange}
+            // multiline
+            rows={4}
+            fullWidth
+            placeholder="Approval Assignee "
+          />{" "}
+          <TextField
+            variant="outlined"
+            // color="error"
+            className="bg-white border-2 border-primary-main rounded-full"
+            // label="Field 1"
+            name="Select "
+            // value={formData.quantity}
+            onChange={handleChange}
+            // multiline
+            rows={4}
+            fullWidth
+            placeholder="Approval Assignee "
+          />
+        </div>
+        <TextField
+          variant="outlined"
+          // color="error"
+          className="bg-white border-2 border-primary-main rounded-full"
+          // label="Field 1"
+          name="Select "
+          // value={formData.quantity}
+          onChange={handleChange}
+          // multiline
+          rows={4}
+          fullWidth
+          placeholder="Approval Assignee "
+        />
+        <TextField
+          variant="outlined"
+          // color="error"
+          className="bg-white border-2 border-primary-main rounded-full"
+          // label="Field 1"
+          name="Select "
+          // value={formData.quantity}
+          onChange={handleChange}
+          // multiline
+          rows={4}
+          fullWidth
+          placeholder="Approval Assignee "
+        />
+        <TextField
+          variant="outlined"
+          // color="error"
+          className="bg-white border-2 border-primary-main rounded-full"
+          // label="Field 1"
+          name="Select "
+          // value={formData.quantity}
+          onChange={handleChange}
+          multiline
+          rows={4}
+          fullWidth
+          placeholder="Approval Assignee "
+        />
+      </div>
+    </div>
+  );
+}
+
+export default Step1;
