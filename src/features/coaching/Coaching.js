@@ -1,27 +1,18 @@
 import React, { useState } from "react";
 import LoginAPi from "apis/LoginApi";
-// import SignupApi from "apis/SignupApi";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
 
-import { FcGoogle } from "react-icons/fc";
-// import { Button, TextField, Typography } from "@mui/material";
-import PasswordTextField from "common/PasswordTextField";
-import { getTextFieldFormikProps } from "utils/FormikUtils";
-import useAuthUser from "hooks/useAuthUser";
-import { Link, Navigate } from "react-router-dom";
-import { RouteEnum } from "constants/RouteConstants";
 import LoginHeader from "common/LoginHeader";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import toDoorLogo from "images/Ellipse 30.png";
-import background from "images/background.png";
-import snake from "images/Nephets Assets/aboutUs-bg.svg";
-import handshake from "images//Nephets Assets/handshake.svg";
+import snake from "images/Nephets Assets/coaching.svg";
+import snake2 from "images/Nephets Assets/coachingBig.svg";
+import handshake from "images/Nephets Assets/IELTSImage.svg";
 
-import { Button, Typography } from "@mui/material";
+import { MediaQueryBreakpointEnum } from "constants/Global";
+import { useMediaQuery, Button } from "@mui/material";
+
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Coaching(props) {
@@ -32,34 +23,38 @@ function Coaching(props) {
   const redirect = () => {
     history("/dashboard");
   };
+  const islg = useMediaQuery(MediaQueryBreakpointEnum.lg);
+  const ismd = useMediaQuery(MediaQueryBreakpointEnum.md);
+  const issm = useMediaQuery(MediaQueryBreakpointEnum.sm);
 
   return (
     <div className=" w-full bg-black ">
-      <LoginHeader />
-      <div className="relative bg-no-repeat bg-[#662817] bg-cover h-[810px] box-border text-white w-full flex flex-col px-10 py-20 pb-[5%]">
-        <div className="flex gap-16 items-end  w-full">
+      <div className="relative bg-no-repeat bg-[#662817] bg-cover max-h-[810px] box-border text-white w-full flex flex-col lg:px-10 p-[6%] py-8 pt-12 lg:pb-10  lg:pt-40 ">
+        <div className="flex flex-col lg:flex-row lg:gap-16 gap-6 items-end w-full">
           <Typography
             variant="h1"
-            className="font-bold  text-[128px]  text-left leading-[140px]"
+            className="font-bold  lg:text-[5.2rem] text-4xl  text-left lg:leading-[90px] leading-35px"
           >
             What You Should Know Before Your Journey Starts
           </Typography>
 
-          <div className="w-2/12  min-w-[295px] pb-7 ">
+          <div className="lg:w-2/12 min-w-[295px] pb-3 ">
             <Typography className="text-base">
-              At Nehpets Consulting, we are more than just a consultancy—we are
-              your dedicated channel to success in the world of Canadian
-              immigration.
+              Planning together to achieve your japa dreams. We work wirh you to
+              achieve your dreams of traveling abroad.
             </Typography>
-
-            <Button className="bg-white h-12 px-12 text-black text-base font-bold mt-4">Book Now</Button>
+            <Button className="h-12 px-12 text-primary-main bg-white mt-5 font-bold">
+              Book Now
+            </Button>
           </div>
         </div>
       </div>
-      <img src={snake} className=" w-full" />
+      <img alt="" src={!issm ? snake : snake2} className=" w-full lg:h-full" />
 
-      <div className="bg-[#FCF9EE] px-[40px] py-[80px] flex w-full items-center">
-        <Typography className="text-[88px] w-full">What is IELTS</Typography>
+      <div className="bg-[#FCF9EE] lg:px-[40px] lg:py-[80px] flex flex-col lg:flex-row w-full lg:gap-28 gap-6 items-center p-[6%]">
+        <Typography className="lg:text-[88px] text-[32px] font-bold w-full">
+          What is IELTS
+        </Typography>
         <Typography className="text-base w-full">
           The International English Language Testing System (IELTS) is an exam
           that is been done on a weekly or bi-weekly basis across different
@@ -71,11 +66,12 @@ function Coaching(props) {
           a scale of 1-9.
         </Typography>
       </div>
-
-      <div className="bg-[#FCF9EE] px-[40px] py-[80px] flex w-full items-center gap-28">
-        <img className="w-[656px] h-[388px] rounded-xl" src={handshake} />
-        <div>
-          <Typography className="text-[88px] w-full">Why IELTS</Typography>
+      <div className="bg-[#FCF9EE] lg:px-[40px] lg:py-[80px] flex flex-col lg:flex-row w-full gap-16 items-center p-[6%]">
+        <img className=" lg:rounded-xl" src={handshake} />
+        <div className="flex flex-col w-full gap-6 items-center">
+          <Typography className="lg:text-6xl 4xl font-bold w-full">
+            Why IELTS
+          </Typography>
           <Typography className="text-base w-full">
             If you intend to live, school or work in an English-speaking
             country, it is necessary to enroll and write the IELTS exams,
@@ -88,27 +84,36 @@ function Coaching(props) {
         </div>
       </div>
 
-      <div className="bg-[#FCF9EE] px-[40px] py-[80px] flex w-full items-center gap-28">
-        <div className="bg-[#F1D0C9] px-4 py-8 pr-10 rounded-xl w-full">
-          <Typography className="text-[80px] leading-[100px] w-full">
-            Requirements
+      <div className="bg-[#F7F6F2] lg:px-[40px] lg:py-[80px] grid lg:grid-cols-2 grid-cols-1 w-full items-center lg:gap-28 gap-12 p-[6%]">
+        <div className="bg-[#F1D0C9] px-4 py-8 pr-10 rounded-xl">
+          <Typography className="lg:text-[80px] lg:leading-[80px] text-[36px]  font-bold w-full">
+            REQUIREMENTS
           </Typography>
-          <Typography className="pr-24">
+          <Typography className="lg:pr-24">
             To be qualified to write the IELTS examination, you must have a
             valid passport from your country of residence, or which has at least
             six months before it expires.
           </Typography>
         </div>
 
-        <div className="bg-[#FFE8D3] px-4 py-8 pr-10 rounded-xl w-full">
-          <Typography className="text-[80px] leading-[100px] w-full">
-          How to apply
+        <div className="bg-[#FFE8D3] px-4 py-8 pr-10 rounded-xl">
+          <Typography className="lg:text-[80px] lg:leading-[80px] text-[36px]  font-bold w-full">
+            How to apply
           </Typography>
-          <Typography className="pr-24">
-            To be a generally accepted Canadian immigration platform to foster
-            success and achieve dreams.
+          <Typography className="lg:pr-24">
+            To apply for the IELTS examination, you will have to provide the
+            necessary information, book a convenient date and time, attach your
+            passport, and proceed to make payment for the exams.
           </Typography>
         </div>
+
+        {/* <div className="bg-[#FFE8D3] px-4 py-8 pr-10 rounded-xl">
+          <Typography className="text-[80px] leading-[80px] w-full">Vision</Typography>
+          <Typography className="pr-24">
+          To be a generally accepted Canadian immigration platform to foster success and 
+achieve dreams.
+          </Typography>
+        </div> */}
       </div>
     </div>
   );

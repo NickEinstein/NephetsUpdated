@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const ModuleName = "Edogov_General_RequestManager";
 // const URL = Cookies.get('_APIBaseURL') + '/generalrequest';

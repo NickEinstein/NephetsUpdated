@@ -12,21 +12,21 @@ import { Divider, Typography } from "@mui/material";
 
 const Footer = () => {
   return (
-    <div className="grid grid-cols-12 px-[10%] bg-[#662817] text-white  py-[8%]">
-      <div className="col-span-3">
-        <img className="w-32" src={logo} />
+    <div className="grid lg:grid-cols-12 grid-cols-1 px-[10%] bg-[#662817] text-white  py-[8%]">
+      <div className="lg:col-span-3 col-span-1 ">
+        <img className="w-32 -ml-6" alt="" src={logo} />
       </div>
-      <div className="col-span-9 grid grid-cols-4  justify-end">
-        <div className="col-span-2"></div>
-        <div className="flex flex-col gap-8 col-span-1">
-            <Divider className="text-white bg-white w-1/4"/>
+      <div className="lg:col-span-9 col-span-1 grid lg:grid-cols-4 grid-cols-1 justify-end mt-8 gap-4 lg:mt-0">
+        <div className="col-span-2 hidden lg:block"></div>
+        <div className="flex flex-col gap-8 col-span-1 ">
+            <Divider className="text-white -mb-5 lg:mb-0 bg-white w-1/4"/>
           <Typography className="text-base">Home</Typography>
           <Typography className="text-base">Coaching</Typography>
           <Typography className="text-base">Visa</Typography>
           <Typography className="text-base">About Us</Typography>
         </div>
-        <div className="flex flex-col gap-8 col-span-1">
-            <Divider className="text-white bg-white w-3/4"/>
+        <div className="flex flex-col gap-8 col-span-1 mt-6 lg:mt-0">
+            <Divider className="text-white -mb-5 lg:mb-0 bg-white w-3/4"/>
           <Typography className="text-base">+234 (904) 919 5599</Typography>
           <Typography className="text-base">+1 (204) 441 - 4828</Typography>
           <Typography className="text-base">Info@Nehpets.consults</Typography>

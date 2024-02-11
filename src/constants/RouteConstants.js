@@ -9,7 +9,7 @@ export const RouteEnum = {
   PERMANENT_RESIDENCE: "/permanent-residence",
   IELTS: "/ielts",
   COACHING: "/coaching",
-  // STOCK_RELEASE: "/warehouse/stock-release",
+  VISA: "/visa",
   // ALARM: "/warehouse/alarm",
   // INVENTORY: "/inventory",
   // ITEMS_MANAGEMENT: "/inventory/items-management",

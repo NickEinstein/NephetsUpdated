@@ -1,145 +1,81 @@
 import React, { useState } from "react";
 import LoginAPi from "apis/LoginApi";
-// import SignupApi from "apis/SignupApi";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import { useSnackbar } from "notistack";
 
-import { FcGoogle } from "react-icons/fc";
-// import { Button, TextField, Typography } from "@mui/material";
-import PasswordTextField from "common/PasswordTextField";
-import { getTextFieldFormikProps } from "utils/FormikUtils";
-import useAuthUser from "hooks/useAuthUser";
-import { Link, Navigate } from "react-router-dom";
-import { RouteEnum } from "constants/RouteConstants";
-import LoginHeader from "common/LoginHeader";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import toDoorLogo from "images/Ellipse 30.png";
-import background from "images/background.png";
-import snake from "images/Nephets Assets/aboutUs-bg.svg";
-import handshake from "images//Nephets Assets/handshake.svg";
+import snake from "images/Nephets Assets/PermanentResBig.svg";
+import snake2 from "images/Nephets Assets/PermanentResmobile.svg";
+// import snake from "images/Nephets Assets/aboutUs2.svg";
+import { MediaQueryBreakpointEnum } from "constants/Global";
+import { useMediaQuery } from "@mui/material";
 
-// import ReactDOM from 'react-dom';
-// import trustedBy1 from './images/Vector.png'
-import trustedBy2 from "images/Rectangle 7.png";
-import trustedBy3 from "images/Rectangle 106.png";
-// import LoginHeader from './LoginHeader';
-// import trustedBy3 from './images/trustedBy-3.png'
-// import trustedBy4 from './images/trustedBy-4.png'
-import {
-  Avatar,
-  Button,
-  Input,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import WallCards from "common/CompanyRiderCard";
-import WallCardsServices from "common/WallCardsServices";
-import WallCardsTestimonies from "common/WallCardsTestimonies";
 
-function TemporalResidence(props) {
+function TempporalResidence(props) {
   const [isLoading, setIsLoading] = React.useState(false);
 
-  // console.log(localStorage.getItem('authUser'))
   const history = useNavigate();
 
   const redirect = () => {
-    // localStorage.setItem('authUser', 'true')
-
     history("/dashboard");
   };
-
-  // console.log(localStorage.getItem('authUser'))
-
-  // const authUser = useAuthUser();
-
-  const { enqueueSnackbar } = useSnackbar();
-  const [loginMuation, loginMutationResult] = LoginAPi.useLoginMutation();
-
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-
-    validationSchema: yup.object({
-      username: yup.string().trim().required(),
-      password: yup.string().trim().required(),
-    }),
-    onSubmit: async (values) => {
-      console.log(values);
-      localStorage.setItem("il", true);
-      // redirect();
-      // history('/dashboard')
-
-      try {
-        setIsLoading(true);
-        const data = await loginMuation({ data: values }).unwrap();
-        // TODO extra login
-        setIsLoading(false);
-        if (data.data)
-          enqueueSnackbar("Logged in successful", { variant: "success" });
-        redirect();
-      } catch (error) {
-        setIsLoading(false);
-
-        enqueueSnackbar(
-          error?.data?.message || "Something went wrong",
-          "Failed to login",
-          {
-            variant: "error",
-          }
-        );
-      }
-    },
-  });
+  const issm = useMediaQuery(MediaQueryBreakpointEnum.sm);
+  const ismd = useMediaQuery(MediaQueryBreakpointEnum.md);
 
   return (
     <div className=" w-full bg-black ">
-      <LoginHeader />
-      <div className="relative bg-no-repeat bg-[#662817] bg-cover box-border text-white w-full flex flex-col pt-20">
-        <div className="flex justify-between items-end px-10  w-full">
+      <div className="relative bg-no-repeat bg-[#662817] bg-cover max-h-[810px] box-border text-white w-full flex flex-col lg:px-10 p-[6%] py-8 pt-12 lg:pb-10 lg:pt-60 ">
+        <div className="flex flex-col lg:flex-row lg:gap-16 gap-6 items-end  w-full">
           <Typography
             variant="h1"
-            className="font-bold  text-[124px] w-3/12  text-left leading-[140px]"
+            className="font-bold  lg:text-[5.4rem] text-4xl  text-left lg:leading-[90px] leading-35px"
           >
-            Temporal residence
+            Temporal Residence{" "}
           </Typography>
 
-          <div className="w-2/12  min-w-[360px] pb-7 ">
-            <Typography className="text-base">
-              At Nehpets Consulting, we are more than just a consultancy—we are
-              your dedicated channel to success in the world of Canadian
-              immigration.
+          <div className="lg:w-2/12 hidden md:block md:min-w-[295px] pb-3  w-full ">
+            <Typography className="lg:text-base text-[14px">
+              Planning together to achieve your japa dreams. We work with you to
+              achieve your dreams of traveling abroad.
             </Typography>
-            <Button className="rounded-full bg-white text-black h-12 px-12 mt-8 mb-3">
+
+            <Button className="h-12 px-12 text-primary-main bg-white mt-5 font-bold">
+              Book Now
+            </Button>
+          </div>
+
+          <div className="lg:hidden md:min-w-[295px] pb-7  w-full">
+            <Typography className="lg:text-base text-[14px ">
+              Planning together to achieve your japa dreams.
+              <br /> We work with you to achieve <br />
+              your dreams of traveling abroad.
+            </Typography>
+            <Button className="h-12 px-12 text-primary-main bg-white mt-5 font-bold">
               Book Now
             </Button>
           </div>
         </div>
-        <img src={snake} className="w-full" />
       </div>
+      <img
+        alt=""
+        src={issm ? snake : ismd ? snake : snake2}
+        className=" w-full lg:h-full"
+      />
 
-      <div className="bg-[#FCF9EE] px-[40px] py-[2px] w-full items-center ">
-        <Typography className="font-bold text-[88px] text-left mb-12 mt-28 ">
+      <div className="bg-[#FCF9EE] py-[2px] w-full items-center px-[5%]">
+        <Typography className="font-bold lg:text-7xl text-4xl text-left my-12 lg:mt-28 ">
           Our Packages
         </Typography>
 
-        <div className="flex gap-8">
+        <div className="grid lg:grid-cols-3 grid-cols-1 gap-8">
           <Paper elevation={3} className="flex flex-col gap-6 rounded-3xl">
             <Typography className="font-bold bg-[#A2241A] p-2 text-white text-center rounded-t-3xl">
               POPULAR
             </Typography>
             <div class="flex px-4 pb-6 flex-col gap-6">
               <div>
-                <Typography className="font-bold text-[32px]">
-                  Student Visa
+                <Typography className="font-bold lg:text-3xl text-2xl">
+                  Express Entry
                 </Typography>
                 <Typography className="text-[14px]">
                   The diversity of life has resulted in the acceptance of
@@ -150,9 +86,9 @@ function TemporalResidence(props) {
                   awarded to an outstanding student.
                 </Typography>
               </div>
-              <Button className="w-full bg-[#A2241A] h-12">Book Now</Button>
+              <Button className="w-full bg-[#A2241A] h-11">Book Now</Button>
               <div>
-                <Typography className="font-bold text-[32px] ">
+                <Typography className="font-bold lg:text-3xl text-2xl ">
                   What do we Offer
                 </Typography>
                 <div className="px-6">
@@ -174,7 +110,7 @@ function TemporalResidence(props) {
                 </div>
               </div>
               <div className="px-6">
-                <Typography className="font-bold text-[32px] ">
+                <Typography className="font-bold lg:text-3xl text-2xl ">
                   Process
                 </Typography>
                 <div className="">
@@ -206,8 +142,8 @@ function TemporalResidence(props) {
             </Typography>
             <div class="flex px-4 pb-6 flex-col gap-6">
               <div>
-                <Typography className="font-bold text-[32px]">
-                  Visitor’s Visa
+                <Typography className="font-bold lg:text-3xl text-2xl">
+                  Provisional Nominee Program (PNP)
                 </Typography>
                 <Typography className="text-[14px]">
                   The diversity of life has resulted in the acceptance of
@@ -218,11 +154,11 @@ function TemporalResidence(props) {
                   awarded to an outstanding student.
                 </Typography>
               </div>
-              <Button className="w-full text-[#A2241A] bg-[white] h-12">
+              <Button className="w-full bg-white text-primary-main h-11 ">
                 Book Now
               </Button>
               <div>
-                <Typography className="font-bold text-[32px] ">
+                <Typography className="font-bold lg:text-3xl text-2xl ">
                   What do we Offer
                 </Typography>
                 <div className="px-6">
@@ -244,7 +180,7 @@ function TemporalResidence(props) {
                 </div>
               </div>
               <div className="px-6">
-                <Typography className="font-bold text-[32px] ">
+                <Typography className="font-bold lg:text-3xl text-2xl ">
                   Process
                 </Typography>
                 <div className="">
@@ -273,7 +209,7 @@ function TemporalResidence(props) {
             </Typography>
             <div class="flex px-4 pb-6 flex-col gap-6">
               <div>
-                <Typography className="font-bold text-[32px]">
+                <Typography className="font-bold lg:text-3xl text-2xl">
                   Care-giver
                 </Typography>
                 <Typography className="text-[14px]">
@@ -285,9 +221,9 @@ function TemporalResidence(props) {
                   awarded to an outstanding student.
                 </Typography>
               </div>
-              <Button className="w-full bg-[#A2241A] h-12">Book Now</Button>
+              <Button className="w-full bg-[#A2241A] h-11 ">Book Now</Button>
               <div>
-                <Typography className="font-bold text-[32px] ">
+                <Typography className="font-bold lg:text-3xl text-2xl ">
                   What do we Offer
                 </Typography>
                 <div className="px-6">
@@ -309,7 +245,7 @@ function TemporalResidence(props) {
                 </div>
               </div>
               <div className="px-6">
-                <Typography className="font-bold text-[32px] ">
+                <Typography className="font-bold lg:text-3xl text-2xl ">
                   Process
                 </Typography>
                 <div className="">
@@ -338,4 +274,4 @@ function TemporalResidence(props) {
   );
 }
 
-export default TemporalResidence;
+export default TempporalResidence;

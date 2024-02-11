@@ -1,243 +1,211 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import { BsPeople } from "react-icons/bs";
 import MailIcon from "@mui/icons-material/Mail";
-import message from "images/message.svg";
-import messageW from "images/messageW.svg";
-import messages from "images/messages.svg";
-import messagesW from "images/messagesW.svg";
-import companies from "images/lifebuoy.svg";
-import companiesW from "images/lifebuoyW.svg";
-import dashboard from "images/category-2.svg";
-import dashboardW from "images/category-2W.svg";
-import trips from "images/routing.svg";
-import tripsW from "images/routingW.svg";
-import rider from "images/profile-2user.svg";
-import riderW from "images/profile-2userW.svg";
-import map from "images/map.svg";
-import mapW from "images/mapW.svg";
-import logouts from "images/logout.png";
-import LoginHeader from "common/LoginHeader";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+// import ToDoorSearch from "common/ToDoorSearch";
+import nephetsColored from "images/Nephets Assets/Nehpets Consulting Colored.svg";
+import nephets from "images/Nephets Assets/Nehpets Consulting Grey Outline 1.svg";
+
+// import coatOfArm from "images/Residency/coat-of-arm.png";
+import { Avatar, Paper } from "@mui/material";
 import { RouteEnum } from "constants/RouteConstants";
-import { useNavigate } from "react-router-dom";
-import { Logout } from "@mui/icons-material";
-import useLogout from "hooks/useLogout";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAuthUser from "hooks/useAuthUser";
 
-const drawerWidth = 240;
+const drawerWidth = "100%";
 
-export default function PermanentDrawerLeft() {
+function Sidebar(props) {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [activeLinkId, setActiveLinkId] = React.useState(null);
+  const [array, setArray] = React.useState([
+    { name: "Home", link: RouteEnum.HOME },
+    { name: "About Us", link: RouteEnum.ABOUT_US },
+    { name: "Coaching", link: RouteEnum.COACHING },
+    { name: "Temporal Residence", link: RouteEnum.TEMPORAL_RESIDENCE },
+    { name: "Permanent Residence", link: RouteEnum.PERMANENT_RESIDENCE },
+  ]);
+
+  const location = useLocation();
+
   const history = useNavigate();
-  const { logout } = useLogout();
-const location = useLocation();
-const currentUrl = location.pathname;
+  const authUser = useAuthUser();
 
-
-  const [outcasts, setOutcasts] = React.useState([
-    { name: "Logout", linx: RouteEnum.HOME, image: logouts },
-  ]);
-
-  const [pat, setPat] = React.useState([
-    {
-      name: "Dashboard",
-      d: RouteEnum.DASHBOARD,
-      image: dashboard,
-      image2: dashboardW,
-      imageboolean: true,
-      color: true,
-    },
-    {
-      name: "Manage Companies",
-      d: RouteEnum.MANAGE_COMPANIES,
-      image: companies,
-      image2: companiesW,
-      imageboolean: false,
-      color: false,
-    },
-    {
-      name: "Manage riders",
-      d: RouteEnum.MANAGE_RIDERS,
-      image: rider,
-      color: false,
-      image2: riderW,
-      imageboolean: false,
-    },
-    {
-      name: "Manage Customers",
-      d: RouteEnum.MANAGE_CUSTOMERS,
-      image: rider,
-      color: false,
-      image2: riderW,
-      imageboolean: false,
-    },
-    {
-      name: "Trips",
-      d: RouteEnum.TRIPS,
-      image: trips,
-      color: false,
-      image2: tripsW,
-      imageboolean: false,
-    },
-    {
-      name: "Maps",
-      d: RouteEnum.MAPS,
-      image: map,
-      color: false,
-      image2: mapW,
-      imageboolean: false,
-    },
-    // {name:'Reviews', d:RouteEnum.MANAGE_COMPANIES},
-    // {
-    //   name: "Reviews",
-    //   // d: "",
-    //   image: message,
-    //   color: false,
-    //   image2: messageW,
-    //   imageboolean: false,
-    // },
-    // {
-    //   name: "Support",
-    //   d: RouteEnum.SUPPORT,
-    //   image: messages,
-    //   image2: messagesW,
-    //   image2: messagesW,
-    //   color: false,
-    //   imageboolean: false,
-    // },
-
-    {
-      name: "Settings",
-      d: RouteEnum.SETTINGS,
-      // image: message,
-      color: false,
-      // image2: messageW,
-      imageboolean: false,
-    },
-
-    // {name:'Support', d:RouteEnum.SUPPORT}
-  ]);
-
-  const redirect = (push) => {
-    console.log(push);
-    history(push);
-    // logout()
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
-   useEffect(() => {
-     changeColorOnActive();
-   }, [currentUrl]);
+  const handleLinkClick = (id, link) => {
+    setActiveLinkId(id);
+    history(link);
+    handleDrawerToggle();
+  };
 
-
-  // const logout = (push) => {
+  // const logoutz = () => {
   //   localStorage.clear();
-  //   console.log("hi");
-  //   history(push);
+
+  //   setTimeout(function () {
+  //     history(RouteEnum.HOME);
+  //   }, 3000);
   // };
 
-  // const pat =
+  const drawer = (
+    <div className=" h-full bg-[#472E2E]">
+      {/* <Toolbar /> */}
 
-  const changeColorOnActive = (num) => {
-    let k = pat.map((e, index) => ({
-      key: e.name,
-      name: e.name,
-      d: e.d,
-      image: e.image,
-      image2: e.image2,
-      imageboolean: e.d == currentUrl ? true : false,
-      color: e.d == currentUrl ? true : false,
-    }));
+      <List className="py-4 ">
+        {array.map(
+          (text, id) =>
+            text.name && (
+              <ListItem
+                className="py-1 text-center flex justify-center "
+                key={text}
+                disablePadding
+              >
+                <ListItemButton
+                  id={id}
+                  onClick={() => handleLinkClick(id, text.link)}
+                  className={
+                    activeLinkId === id
+                      ? `bg-primary-main font-bold text-3xl text-white  text-center flex justify-center hover:bg-primary-main hover:text-white `
+                      : " text-white font-bold text-3xl hover:bg-primary-main text-center flex justify-center  hover:text-white "
+                  }
+                  sx={{
+                    fontSize: "30px",
+                  }}
+                >
+                  {/* <ListItemIcon>
+                    {id % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon> */}
+                  {/* <ListItemText primary={text?.name} /> */}
+                  <Typography className="font-bold text-center" variant="h6">
+                    {text?.name}
+                  </Typography>
+                </ListItemButton>
+              </ListItem>
+            )
+        )}
+      </List>
+      <Divider />
+      {/* <List>
+        {["Log Out"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton
+              onClick={logoutz}
+              sx={{
+                color: mobileOpen ? "blue" : "inherit",
+                "&.Mui-selected": {
+                  color: "blue",
+                },
+              }}
+            >
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List> */}
+    </div>
+  );
 
-    console.log(k);
-    setPat(k);
-  };
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", backgroundColor: "#1E1E1E" }}>
-      {/* <CssBaseline /> */}
-      {/* <AppBar
+    <Box className="w-full border bg-red-600 mb-4" sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        // className=""
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-      >
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Permanent drawer
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
-      <Drawer
         sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
+          width: "100%",
+          // backgroundColor: "#472E2E",
+          // width: { lg: `calc(100% - ${drawerWidth}px)` },
+          // ml: { lg: `${drawerWidth}px` },
         }}
-        variant="permanent"
-        anchor="left"
       >
-        {/* <Toolbar /> */}
-        <div className="px-3 py-5">
-          <LoginHeader />
-        </div>
-        {/* <Divider /> */}
-        <List>
-          {pat.map((text, index) => (
-            <ListItem
-              style={{
-                backgroundColor: text.color ? "#0C3BAA" : "",
-                color: text.color ? "white" : "",
-              }}
-              // inkBarStyle={{ background: "yellow" }}
-              key={text.name}
-              disablePadding
+          <Paper elevation={3}
+            className={`${
+              location.pathname === "/ielts"
+                ? "bg-white flex justify-between fixed top-0 z-20 p-2 w-full px-[6%] pb-0  rounded-none"
+                : "pb-0 bg-[#662817] p-2 flex justify-between fixed top-0 z-20 w-full px-[6%] rounded-none"
+            }`}
+          >
+            <img
+              className="w-16"
+              alt="Logo"
+              src={location.pathname === "/ielts" ? nephetsColored : nephets}
+            />
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { lg: "none" } }}
+              className="text-white"
             >
-              <ListItemButton
-                onClick={() => {
-                  redirect(text.d);
-                  changeColorOnActive(index);
-                }}
-              >
-                <ListItemIcon>
-                  <img src={text.imageboolean ? text.image2 : text.image} />
-                </ListItemIcon>
-                <ListItemText primary={text.name} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {outcasts.map((text, index) => (
-            <ListItem
-              className={index % 2 == 0 ? "mt-6" : ""}
-              key={text.name}
-              disablePadding
-            >
-              <ListItemButton onClick={() => logout(text.linx)}>
-                <ListItemIcon>
-                  <img src={text.image} />
-                  {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                </ListItemIcon>
-                <ListItemText primary={text.name} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+              <MenuIcon />
+            </IconButton>
+          </Paper>
+       
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { lg: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            border: "2px solid red",
+            display: { xs: "block", lg: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", lg: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+    
     </Box>
   );
 }
+
+export default Sidebar;
